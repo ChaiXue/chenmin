@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ng - +-*/</title>
+</head>
+
+<body ng-app ng-controller="CalculatorController">
+  <input type="number" ng-model="num1">
+  <select name="" id="" ng-model="opt">
+    <option value="0">+</option>
+    <option value="1">-</option>
+    <option value="2">*</option>
+    <option value="3">/</option>
+  </select>
+  <input type="number" ng-model="num2">
+  <button ng-click="cal()">=</button>
+  <input type="number" ng-model="result">
+  <script src="AngularJS/ng-1.2.32/angular.js"></script>
+  <script>
+    // $scope 就是那个圆柱体对象
+    // 需求：根据视图抽象数据模型成员
+    // 1. 在全局定义一个函数，必须是全局
+    // 2. 函数接收一个参数：$scope 必须的
+    // 3. 在 html 中通过 ng-controller 让你的 HTML 视图和 f() 函数建立一个关系
+    //    ng 解析执行到 ng-controller 的时候会自动去全局找对应的 f 函数，然后执行
+    // 4. 这样的话被作用了 ng-controller 属性的元素中所有的子节点都可以直接访问函数 f 中的 $scope 数据成员
+    // 总结：
+    //    1. 写 ng 代码肯定是把代码都写到 js 中
+    //    2. 通过一个函数让你的视图和数据模型之间产生一个关联
+    //    3. 该函数具有特殊意义，是 ng 根据 ng-controller 指令自动去调用的
+    //    4. 该函数必须定义在全局，而且为了有别于普通函数，所以在起名字的时候，用一个大写业务名称加上一个 Controller 作为一个语义性
+    //    这个函数的学名叫控制器：用来控制视图和数据模型的交互
+    //        主要有两个职责：
+    //          1. 根据视图初始化数据模型成员
+    //             普通成员
+    //             行为函数
+    function CalculatorController($scope) {
+      $scope.num1 = 0
+      $scope.num2 = 0
+      $scope.opt = 0
+      $scope.result = 0
+      $scope.cal = function () {
+        switch ($scope.opt) {
+          case '0':
+            $scope.result = $scope.num1 + $scope.num2
+            break
+          case '1':
+            $scope.result = $scope.num1 - $scope.num2
+            break
+          case '2':
+            $scope.result = $scope.num1 * $scope.num2
+            break
+          case '3':
+            $scope.result = $scope.num1 / $scope.num2
+            break
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
